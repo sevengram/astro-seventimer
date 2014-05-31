@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textview_iridium_mag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/orange"
+        android:textSize="@dimen/sat_info_title"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textview_iridium_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sat_info_text" />
+
+    <TextView
+        android:id="@+id/textview_iridium_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sat_info_text" />
+
+    <TextView
+        android:id="@+id/textview_iridium_pos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sat_info_text" />
+
+    <TextView
+        android:id="@+id/textview_iridium_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sat_info_text" />
+
+    <TextView
+        android:id="@+id/textview_iridium_sunalt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sat_info_text" />
+
+</LinearLayout>

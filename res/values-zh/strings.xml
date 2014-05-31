@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">晴天钟</string>
+    <string name="wechat_name">邻家天文馆</string>
+    <string name="app_about">Deepsky Group出品\nEmail: deepskydev@gmail.com\n微信订阅号: 邻家天文馆\n - 天气数据来自晴天钟(7timer.com)\n - ISS与铱闪数据来自Heavens-Above</string>
+    <string name="wechat_info">欢迎关注微信订阅号\"邻家天文馆\"获取更多信息. 晴天钟天气查询, 30000+深空天体数据库, 定期发布天象预报, 与你分享天文知识.</string>
+    
+    <string name="tag_cloud_cover">全天云量</string>
+    <string name="tag_day">日期</string>
+    <string name="tag_twilight">天文晨光/昏影</string>
+    <string name="tag_hour">小时</string>
+    <string name="tag_seeing">大气视宁度</string>
+    <string name="tag_transparency">大气透明度</string>
+    <string name="tag_temperature">地面气温</string>
+    <string name="tag_wind">风向风力</string>
+    <string name="tag_humidity">地面相对湿度</string>
+    <string name="tag_precipitation">降雨/降雪</string>
+    <string name="tag_sunrise_set">日出/日落</string>
+    <string name="tag_longitude">经度:</string>
+    <string name="tag_latitude">纬度:</string>
+    <string name="tag_name">名称:</string>
+    <string name="tag_active_location">当前地点:</string>
+    <string name="tag_location">地点:</string>
+    <string name="tag_update_time">预报生成时间 </string>
+    
+    <string name="btn_add">新增</string>
+    <string name="btn_delete">删除</string>
+    <string name="btn_ok">确定</string>
+    <string name="btn_cancel">取消</string>
+    <string name="btn_no">否</string>
+    <string name="btn_yes">是</string>
+    
+    <string name="title_settings">设置</string>
+    <string name="title_location">位置</string>
+    <string name="title_add_location">新增地点</string>
+    <string name="title_cloud_cover">云图预报</string>
+    <string name="title_wait">请稍候&#8230;</string>
+    <string name="title_locator">定位服务</string>
+    <string name="radio_locator_baidu">百度(推荐)</string>
+    <string name="radio_locator_google">谷歌</string>
+    <string name="title_temperature">温标</string>
+    <string name="radio_temp_cen">摄氏</string>
+    <string name="radio_temp_fah">华氏</string>
+    <string name="format_temperature">地面气温 (%s)</string>
+    
+    <!-- Location -->
+    <string name="text_location_updating">更新中&#8230;</string>
+    <string name="text_processing">处理中&#8230;</string>
+    <string name="text_current_location">我的位置</string>
+    <string name="toast_location_fail">定位失败</string>
+    <string name="toast_app_exit">再按一次退出程序</string>
+    
+    <string name="toast_without_network">没有检测到网络！</string>
+    <string name="toast_timeout">更新超时</string>
+    <string name="toast_failed">更新失败</string>
+    <string name="toast_image_failed">图片获取失败</string>
+    
+    <string name="toast_data_error">数据包错误</string>
+    <string name="toast_remove_error">不能删除最后一个地点</string>
+    <string name="toast_cloud_info">点击查看云图预报</string>
+    
+    <string name="dialog_title_update">更新提醒</string>
+    <string name="dialog_message_update">发现新版本v%s</string>
+    <string name="title_update">Seven Timer更新中</string>
+    <string name="btn_update_now">更新</string>
+    
+    <string name="menu_about">关于</string>
+    <string name="menu_preferences">设置</string>
+    
+    <!-- Location dialog -->
+    <string name="dialog_title_network">未检测到网络</string>
+    <string name="dialog_title_location">未启动位置服务</string>
+    <string name="dialog_message_service">是否打开?</string>
+    <string name="btn_wifi">Wifi</string>
+    <string name="btn_mobile">移动数据</string>
+    
+    <!-- Satellite info -->
+    <string name="text_utc_time">图片时间UTC+0</string>
+    <string name="text_data_from">数据来自Heavens-Above</string>
+    <string name="title_choose_wechat">请选择微信</string>
+    <string name="text_satinfo_date">日期: %s</string>
+    <string name="text_satinfo_time">时间: %s</string>
+    <string name="text_satinfo_pos">高度/方位: %s</string>
+    <string name="text_satinfo_flare_center">闪光中心: %1$.1f/%2$s</string>
+    <string name="text_satinfo_sun_alt">太阳高度: %s</string>
+    <string name="text_satinfo_start_time">开始时间: %s</string>
+    <string name="text_satinfo_start_pos">开始高度/方位: %s</string>
+    <string name="text_satinfo_highest_time">最高时间: %s</string>
+    <string name="text_satinfo_highest_pos">最高高度/方位: %s</string>
+    <string name="text_satinfo_end_time">结束时间: %s</string>
+    <string name="text_satinfo_end_pos">结束高度/方位: %s</string>
+    
+    
+</resources>

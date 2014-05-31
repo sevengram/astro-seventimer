@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:paddingBottom="10dp"
+    android:paddingTop="5dp" >
+
+    <LinearLayout
+        android:id="@+id/linearlayout_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:gravity="right"
+            android:text="@string/tag_name" />
+
+        <EditText
+            android:id="@+id/edittext_name"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearlayout_latlon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearlayout_name"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:gravity="right"
+                android:text="@string/tag_longitude" />
+
+            <EditText
+                android:id="@+id/edittext_longitude"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned|numberDecimal"
+                android:lines="0" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:gravity="right"
+                android:text="@string/tag_latitude" />
+
+            <EditText
+                android:id="@+id/edittext_latitude"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned|numberDecimal"
+                android:lines="0" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="95.0dip"
+        android:layout_below="@+id/linearlayout_name"
+        android:layout_toRightOf="@+id/linearlayout_latlon"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="1.0dip"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="#bbbbbb" />
+
+        <ImageButton
+            android:id="@+id/button_currentlocation"
+            style="@android:style/Widget.ImageButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:contentDescription="@null"
+            android:onClick="onClickLocation"
+            android:src="@drawable/btn_location" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_addlocation_ok"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearlayout_latlon"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:onClick="onClickOK"
+        android:text="@string/btn_ok" />
+
+</RelativeLayout>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Astro Plus</string>
+    <string name="wechat_name">Astro Plus</string>
+    <string name="app_about">Developed by: Deepsky Group\nContact us: deepskydev@gmail.com\nWeather forecast powered by:\n - http://7timer.com\nISS and Iridium flares:\n - http://www.heavens-above.com</string>
+    <string name="wechat_info">Please follow \'sevengram\' in WeChat to get more information.</string>
+    <string name="tag_cloud_cover">Cloud cover</string>
+    <string name="tag_day">Day</string>
+    <string name="tag_twilight">Twilight</string>
+    <string name="tag_hour">Hour</string>
+    <string name="tag_seeing">Seeing</string>
+    <string name="tag_transparency">Transparency</string>
+    <string name="tag_temperature">Temp</string>
+    <string name="tag_wind">Wind</string>
+    <string name="tag_humidity">Humidity</string>
+    <string name="tag_precipitation">Precipitation</string>
+    <string name="tag_sunrise_set">Sunrise/set</string>
+    <string name="tag_longitude">Longitude:</string>
+    <string name="tag_latitude">Latitude:</string>
+    <string name="tag_name">Name:</string>
+    <string name="tag_active_location">Active Location:</string>
+    <string name="tag_location">Location:</string>
+    <string name="tag_update_time">Forecast initialized at </string>
+    <string name="btn_add">Add&#8230;</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_no">No</string>
+    <string name="btn_yes">Yes</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_location">Location</string>
+    <string name="title_locator">Location Service</string>
+    <string name="radio_locator_baidu">Baidu(China)</string>
+    <string name="radio_locator_google">Google</string>
+    <string name="title_temperature">Temperature</string>
+    <string name="radio_temp_cen">°C</string>
+    <string name="radio_temp_fah">°F</string>
+    <string name="title_add_location">Add Location</string>
+    <string name="title_cloud_cover">Cloud Cover</string>
+    <string name="title_wait">Please Wait&#8230;</string>
+    <string name="format_temperature">Temp (%s)</string>
+
+    <!-- Location -->
+    <string name="text_location_updating">Updating&#8230;</string>
+    <string name="text_processing">Processing&#8230;</string>
+    <string name="text_current_location">Current location</string>
+    <string name="toast_app_exit">Press BACK again to quit</string>
+        
+    <string name="toast_location_fail">Fail to update location</string>
+    <string name="toast_without_network">Without network!</string>
+    <string name="toast_timeout">Time out</string>
+    <string name="toast_failed">Failed</string>
+    <string name="toast_image_failed">Failed to get the image</string>
+    <string name="toast_data_error">Data Error</string>
+    <string name="toast_cloud_info">Click the columns to check weather charts</string>
+    <string name="toast_remove_error">Can\'t remove the last one!</string>
+    <string name="dialog_title_update">New Version</string>
+    <string name="dialog_message_update">Version %s is available!</string>
+    <string name="title_update">Seven Timer Updating</string>
+    <string name="btn_update_now">Update Now</string>
+    <string name="menu_about">About</string>
+    <string name="menu_preferences">Settings</string>
+
+    <!-- Location dialog -->
+    <string name="dialog_title_network">No Network Service</string>
+    <string name="dialog_title_location">No Location Service</string>
+    <string name="dialog_message_service">Do you want to launch the service?</string>
+    <string name="btn_wifi">Wifi</string>
+    <string name="btn_mobile">Mobile Data</string>
+
+    <!-- Satellite info -->
+    <string name="text_utc_time">UTC+0 in pic</string>
+    <string name="text_data_from">Data from Heavens-Above</string>
+    <string name="title_choose_wechat">Please choose WeChat</string>
+    <string name="text_satinfo_date">Date: %s</string>
+    <string name="text_satinfo_time">Time: %s</string>
+    <string name="text_satinfo_pos">Alt/Az: %s</string>
+    <string name="text_satinfo_flare_center">Flare centre: %1$.1f/%2$s</string>
+    <string name="text_satinfo_sun_alt">Sun alt: %s</string>
+    <string name="text_satinfo_start_time">Start time: %s</string>
+    <string name="text_satinfo_start_pos">Start Alt/Az: %s</string>
+    <string name="text_satinfo_highest_time">Highest time: %s</string>
+    <string name="text_satinfo_highest_pos">Highest Alt/Az: %s</string>
+    <string name="text_satinfo_end_time">End time: %s</string>
+    <string name="text_satinfo_end_pos">End Alt/Az: %s</string>
+</resources>

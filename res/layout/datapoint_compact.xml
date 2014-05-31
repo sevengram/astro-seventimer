@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llParent"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:background="@drawable/listitem_weather_background" >
+
+    <LinearLayout
+        android:id="@+id/llDayDivider24"
+        android:layout_width="1.0dip"
+        android:layout_height="fill_parent"
+        android:background="#ffffffff"
+        android:orientation="horizontal"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/llDayDivider"
+        android:layout_width="1.0dip"
+        android:layout_height="fill_parent"
+        android:background="#ff444444"
+        android:orientation="horizontal"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/txtDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.0"
+            android:textColor="#ffffffff"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/txtRiseSetTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.0"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/astrolightTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.0"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtHour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.0"
+            android:gravity="center_horizontal"
+            android:textColor="#ffffbbbb"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/ivCloudCover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:src="@drawable/icon_unknown" />
+
+        <ImageView
+            android:id="@+id/ivSeeing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:src="@drawable/icon_unknown" />
+
+        <ImageView
+            android:id="@+id/ivTransparency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:src="@drawable/icon_unknown" />
+
+        <TextView
+            android:id="@+id/txtTemperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.0"
+            android:gravity="center_horizontal"
+            android:textColor="#ffffffff"
+            android:textSize="15sp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true" >
+
+            <ImageView
+                android:id="@+id/ivWind"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:src="@drawable/icon_unknown" />
+
+            <TextView
+                android:id="@+id/txtWindSpeed"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:textColor="#ffffffff"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txtHumidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.0"
+            android:gravity="center_horizontal"
+            android:textColor="#ffffffff"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/ivRain"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_weight="0.0"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null" />
+    </LinearLayout>
+
+</LinearLayout>

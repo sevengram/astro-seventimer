@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textview_iss_mag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/orange"
+        android:textSize="@dimen/sat_info_title"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textview_iss_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sat_info_text" />
+
+    <TextView
+        android:id="@+id/textview_iss_starttime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sat_info_text" />
+
+    <TextView
+        android:id="@+id/textview_iss_startpos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sat_info_text" />
+
+    <TextView
+        android:id="@+id/textview_iss_maxtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sat_info_text" />
+
+    <TextView
+        android:id="@+id/textview_iss_maxpos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sat_info_text" />
+
+    <TextView
+        android:id="@+id/textview_iss_endtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sat_info_text" />
+
+    <TextView
+        android:id="@+id/textview_iss_endpos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sat_info_text" />
+
+</LinearLayout>
