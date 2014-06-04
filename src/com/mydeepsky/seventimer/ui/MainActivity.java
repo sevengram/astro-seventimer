@@ -152,7 +152,7 @@ public class MainActivity extends LocatorActivity {
         reportsViewPager.setSwitchDuration(700);
         reportsViewPager.setAdapter(pagerAdapter);
 
-        this.refreshDialog = DialogManager.createRefreshDialog(context);
+        refreshDialog = DialogManager.createRefreshDialog(context);
         loadSettings();
         StatManager.getInstance().sendStartApp(null);
         UmengUpdateAgent.update(this);
@@ -460,23 +460,29 @@ public class MainActivity extends LocatorActivity {
                 Toast.makeText(getApplicationContext(), R.string.toast_data_error,
                         Toast.LENGTH_SHORT).show();
             } finally {
-                refreshDialog.dismiss();
+                if (!isFinishing()) {
+                    refreshDialog.dismiss();
+                }
             }
             StatManager.getInstance().sendWeatherStat(totalDelay, serverDelay);
         }
 
         @Override
         public void onTimeout(Object sender, TaskTimeoutEvent event) {
-            refreshDialog.dismiss();
-            Toast.makeText(context, R.string.toast_timeout, Toast.LENGTH_SHORT).show();
-            forecastScrollView.removeAllViews();
+            if (!isFinishing()) {
+                refreshDialog.dismiss();
+                Toast.makeText(context, R.string.toast_timeout, Toast.LENGTH_SHORT).show();
+                forecastScrollView.removeAllViews();
+            }
         }
 
         @Override
         public void onTaskFailed(Object sender, TaskFailedEvent event) {
-            refreshDialog.dismiss();
-            Toast.makeText(context, R.string.toast_failed, Toast.LENGTH_SHORT).show();
-            forecastScrollView.removeAllViews();
+            if (!isFinishing()) {
+                refreshDialog.dismiss();
+                Toast.makeText(context, R.string.toast_failed, Toast.LENGTH_SHORT).show();
+                forecastScrollView.removeAllViews();
+            }
         }
 
         @Override
@@ -504,23 +510,29 @@ public class MainActivity extends LocatorActivity {
             } catch (JSONException e) {
                 Toast.makeText(context, R.string.toast_data_error, Toast.LENGTH_SHORT).show();
             } finally {
-                refreshDialog.dismiss();
+                if (!isFinishing()) {
+                    refreshDialog.dismiss();
+                }
             }
             StatManager.getInstance().sendSatelliteStat(delay);
         }
 
         @Override
         public void onTimeout(Object sender, TaskTimeoutEvent event) {
-            refreshDialog.dismiss();
-            Toast.makeText(context, R.string.toast_timeout, Toast.LENGTH_SHORT).show();
-            forecastScrollView.removeAllViews();
+            if (!isFinishing()) {
+                refreshDialog.dismiss();
+                Toast.makeText(context, R.string.toast_timeout, Toast.LENGTH_SHORT).show();
+                forecastScrollView.removeAllViews();
+            }
         }
 
         @Override
         public void onTaskFailed(Object sender, TaskFailedEvent event) {
-            refreshDialog.dismiss();
-            Toast.makeText(context, R.string.toast_failed, Toast.LENGTH_SHORT).show();
-            forecastScrollView.removeAllViews();
+            if (!isFinishing()) {
+                refreshDialog.dismiss();
+                Toast.makeText(context, R.string.toast_failed, Toast.LENGTH_SHORT).show();
+                forecastScrollView.removeAllViews();
+            }
         }
 
         @Override
@@ -607,45 +619,6 @@ public class MainActivity extends LocatorActivity {
             return reportsViewList.get(position);
         }
     };
-
-    // private OnTaskFinishListener onTaskFinishListener = new
-    // OnTaskFinishListener() {
-    //
-    // @Override
-    // public void onTaskFinished(Object sender, TaskFinishedEvent event) {
-    // if (isFinishing()) {
-    // return;
-    // }
-    // String result = event.getContext().getString(Task.KEY_RESULT);
-    // if (!TextUtils.isEmpty(result)) {
-    // UpdateInfo info = new Gson().fromJson(result, UpdateInfo.class);
-    // Log.d(TAG, info.toString());
-    // final int rev = info.getRev();
-    // final String url = info.getUrl();
-    // String message = String.format(getString(R.string.dialog_message_update),
-    // info.getVersion());
-    // if (!TextUtils.isEmpty(info.getMessage())) {
-    // message = message + "\n" + info.getMessage();
-    // }
-    // if (AppUtil.getVersionCode(context) < rev
-    // && SettingsProvider.getInstance(context).getIgnoreUpdate() < rev) {
-    // Dialog dialog = DialogManager.createUpdateDialog(context, message,
-    // new DialogInterface.OnClickListener() {
-    // @Override
-    // public void onClick(DialogInterface dialog, int which) {
-    // UpdateManager.getInstance(context).downloadApk(url);
-    // }
-    // }, new DialogInterface.OnClickListener() {
-    // @Override
-    // public void onClick(DialogInterface dialog, int which) {
-    // SettingsProvider.getInstance(context).setIgnoreUpdate(rev);
-    // }
-    // });
-    // dialog.show();
-    // }
-    // }
-    // }
-    // };
 
     @Override
     public void onWithoutService(int error) {

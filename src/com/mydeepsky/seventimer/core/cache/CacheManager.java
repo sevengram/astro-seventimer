@@ -55,10 +55,12 @@ public class CacheManager {
 
     public void cleanImageCache() {
         File files[] = new File(mImageCachePath).listFiles();
-        for (File subfile : files) {
-            String[] tmps = subfile.getName().split("_");
-            if (TimeMath.date2mjd(new Date()) > Double.parseDouble(tmps[tmps.length - 1])) {
-                subfile.delete();
+        if (files != null) {
+            for (File subfile : files) {
+                String[] tmps = subfile.getName().split("_");
+                if (TimeMath.date2mjd(new Date()) > Double.parseDouble(tmps[tmps.length - 1])) {
+                    subfile.delete();
+                }
             }
         }
     }
