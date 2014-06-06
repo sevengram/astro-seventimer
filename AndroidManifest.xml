@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mydeepsky.seventimer"
     android:installLocation="auto"
-    android:versionCode="5"
-    android:versionName="1.0.2" >
+    android:versionCode="6"
+    android:versionName="1.0.3" >
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -83,7 +83,7 @@
             android:process=":remote" >
         </service>
         <service
-            android:name="com.umeng.common.net.DownloadingService"
+            android:name="com.umeng.update.net.DownloadingService"
             android:process=":DownloadingService" >
         </service>
 

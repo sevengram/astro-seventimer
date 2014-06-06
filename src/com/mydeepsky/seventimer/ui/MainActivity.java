@@ -415,6 +415,7 @@ public class MainActivity extends LocatorActivity {
         chooser.setClassName("android", "com.android.internal.app.ResolverActivity");
         chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedIntents.toArray(new Parcelable[] {}));
         try {
+            StatManager.getInstance().sendWechatStat();
             startActivity(chooser);
         } catch (ActivityNotFoundException e) {
             return false;

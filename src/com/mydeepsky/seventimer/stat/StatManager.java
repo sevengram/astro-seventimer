@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.mydeepsky.android.location.BaiduLocator;
 import com.mydeepsky.android.location.GoogleLocator;
@@ -78,17 +79,21 @@ public class StatManager {
                 DeviceUtil.getDeviceModel())));
     }
 
+    public void sendWechatStat() {
+        MobclickAgent.onEvent(mAppContext, "wechat");
+    }
+
     public void sendSatelliteStat(long delay) {
         sendReport(new StatReport("satellite_stat", new SatelliteStat(delay,
                 NetworkManager.getNetworkType(), mUUID, mVersion)));
-        sendUmeng("satellite_delay", delay);
+        sendUmeng("satellite_delay", NetworkManager.getSimpleNetworkString(), delay);
     }
 
     public void sendWeatherStat(long totalDelay, long serverDelay) {
         sendReport(new StatReport("weather_stat", new WeatherStat(totalDelay, serverDelay,
                 NetworkManager.getNetworkType(), mUUID, mVersion)));
-        sendUmeng("weather_total_delay", totalDelay);
-        sendUmeng("weather_server_delay", serverDelay);
+        sendUmeng("weather_total_delay", NetworkManager.getSimpleNetworkString(), totalDelay);
+        sendUmeng("weather_server_delay", NetworkManager.getSimpleNetworkString(), serverDelay);
     }
 
     public void sendLocationStat(LocationInfo info, long costTime, int locator) {
@@ -96,7 +101,6 @@ public class StatManager {
                 NetworkManager.getNetworkType(), locator, mUUID, mVersion, info.getLongitude(),
                 info.getLatitude(), info.getDetail())));
         Map<String, String> map = new HashMap<String, String>();
-        map.put("__ct__", String.valueOf(costTime));
         switch (locator) {
         case GoogleLocator.ID:
             map.put("locator", "google");
@@ -105,12 +109,14 @@ public class StatManager {
             map.put("locator", "baidu");
             break;
         }
-        MobclickAgent.onEvent(mAppContext, "location_delay", map);
+        MobclickAgent.onEventValue(mAppContext, "location_delay", map, (int) costTime);
     }
 
-    private void sendUmeng(String id, long delay) {
+    private void sendUmeng(String id, String network, long delay) {
         Map<String, String> map = new HashMap<String, String>();
-        map.put("__ct__", String.valueOf(delay));
-        MobclickAgent.onEvent(mAppContext, id, map);
+        if (!TextUtils.isEmpty(network)) {
+            map.put("network", network);
+        }
+        MobclickAgent.onEventValue(mAppContext, id, map, (int) delay);
     }
 }
