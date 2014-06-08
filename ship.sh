@@ -19,7 +19,7 @@ cp -r keystore/deepskygroup.keystore build
 
 cd build
 rm -f libs/android.jar
-for ((INSTALL_CHANNEL = 1; INSTALL_CHANNEL <= 1; ++INSTALL_CHANNEL));
+for ((INSTALL_CHANNEL = 0; INSTALL_CHANNEL <= 5; ++INSTALL_CHANNEL));
 do
 	ant ship -Dapp.channel=$INSTALL_CHANNEL;
 done
