@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Astro Plus</string>
+    <string name="app_name">Astro Weather</string>
     <string name="wechat_name">Astro Plus</string>
     <string name="app_about">Developed by: Deepsky Group\nContact us: deepskydev@gmail.com\nWeather forecast powered by:\n - http://7timer.com\nISS and Iridium flares:\n - http://www.heavens-above.com</string>
     <string name="wechat_info">Please follow \'sevengram\' in WeChat to get more information.</string>
