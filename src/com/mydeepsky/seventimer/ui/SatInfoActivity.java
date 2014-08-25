@@ -22,15 +22,17 @@ public class SatInfoActivity extends BaseActivity {
 
     public static final String EXTRA_SATINFO = "EXTRA_SATINFO";
 
+    private Bitmap mSatImage;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_satinfo);
 
         byte[] data = getIntent().getByteArrayExtra(EXTRA_IMAGE);
         if (data != null) {
-            Bitmap satImage = BitmapFactory.decodeByteArray(data, 0, data.length);
+            mSatImage = BitmapFactory.decodeByteArray(data, 0, data.length);
             ImageView imageView = (ImageView) findViewById(R.id.imageview_satellite);
-            imageView.setImageBitmap(satImage);
+            imageView.setImageBitmap(mSatImage);
             imageView.getLayoutParams().width = DisplayUtil.getWidthPx(this);
         }
 
@@ -39,6 +41,14 @@ public class SatInfoActivity extends BaseActivity {
         if (satellite != null) {
             infoWrapper.addView(getView(this, satellite));
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mSatImage != null) {
+            mSatImage.recycle();
+        }
+        super.onDestroy();
     }
 
     private View getView(Context context, Satellite satellite) {

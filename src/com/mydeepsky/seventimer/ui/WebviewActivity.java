@@ -52,7 +52,7 @@ public class WebviewActivity extends BaseActivity {
         } else {
             setZoomControlGone(webview);
         }
-        webview.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        webview.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         webview.setWebChromeClient(new SimpleWebChromeClient());
         webview.setWebViewClient(new SimpleWebViewClient());
 

@@ -85,26 +85,30 @@ public class SatelliteTask extends Task {
                 if (html == null || "".equals(html)) {
                     return;
                 }
-
-                Document document = Jsoup.parse(html);
-                Elements trs = document.getElementsByClass("clickableRow");
-                for (Element tr : trs) {
-                    Elements tds = tr.getElementsByTag("td");
-                    Map<String, Object> map = new HashMap<String, Object>();
-                    map.put("mag", Double.parseDouble(tds.get(1).text()));
-                    map.put("stime", tds.get(2).text());
-                    map.put("salt", tds.get(3).text());
-                    map.put("saz", tds.get(4).text());
-                    map.put("htime", tds.get(5).text());
-                    map.put("halt", tds.get(6).text());
-                    map.put("haz", tds.get(7).text());
-                    map.put("etime", tds.get(8).text());
-                    map.put("ealt", tds.get(9).text());
-                    map.put("eaz", tds.get(10).text());
-                    map.put("lng", longitude);
-                    map.put("lat", latitude);
-                    map.put("mjd", tds.get(0).child(0).attr("href").split("&")[7].split("=")[1]);
-                    issResults.put(new JSONObject(map));
+                try {
+                    Document document = Jsoup.parse(html);
+                    Elements trs = document.getElementsByClass("clickableRow");
+                    for (Element tr : trs) {
+                        Elements tds = tr.getElementsByTag("td");
+                        Map<String, Object> map = new HashMap<String, Object>();
+                        map.put("mag", Double.parseDouble(tds.get(1).text()));
+                        map.put("stime", tds.get(2).text());
+                        map.put("salt", tds.get(3).text());
+                        map.put("saz", tds.get(4).text());
+                        map.put("htime", tds.get(5).text());
+                        map.put("halt", tds.get(6).text());
+                        map.put("haz", tds.get(7).text());
+                        map.put("etime", tds.get(8).text());
+                        map.put("ealt", tds.get(9).text());
+                        map.put("eaz", tds.get(10).text());
+                        map.put("lng", longitude);
+                        map.put("lat", latitude);
+                        map.put("mjd", tds.get(0).child(0).attr("href").split("&")[7].split("=")[1]);
+                        issResults.put(new JSONObject(map));
+                    }
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 }
             }
         });
@@ -117,10 +121,11 @@ public class SatelliteTask extends Task {
                 if (html == null || "".equals(html)) {
                     return;
                 }
-                Document document = Jsoup.parse(html);
-                SimpleDateFormat format = new SimpleDateFormat("HH:mm E, dd MMMM, yyyy", Locale.US);
-                format.setTimeZone(TimeZone.getTimeZone("GMT+0"));
                 try {
+                    Document document = Jsoup.parse(html);
+                    SimpleDateFormat format = new SimpleDateFormat("HH:mm E, dd MMMM, yyyy",
+                            Locale.US);
+                    format.setTimeZone(TimeZone.getTimeZone("GMT+0"));
                     Calendar cal1 = Calendar.getInstance(TimeZone.getTimeZone("GMT+0"));
                     cal1.setTime(format.parse(document.getElementById("ctl00_cph1_lblSearchStart")
                             .text()));

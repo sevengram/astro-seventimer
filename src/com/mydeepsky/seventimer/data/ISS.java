@@ -69,8 +69,10 @@ public class ISS extends Satellite {
         } catch (ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        } catch (NumberFormatException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-
     }
 
     @Override
@@ -98,7 +100,7 @@ public class ISS extends Satellite {
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss", Locale.US);
         return formatter.format(endTime);
     }
-    
+
     public Date getEndTimeDate() {
         return endTime;
     }
