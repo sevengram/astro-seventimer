@@ -75,6 +75,18 @@ public class AddLocationActivity extends LocatorActivity {
         }
     };
 
+    private void showRefreshDialog() {
+        if (!isFinishing() && refreshDialog != null) {
+            refreshDialog.show();
+        }
+    }
+
+    private void dismissRefreshDialog() {
+        if (!isFinishing() && refreshDialog != null) {
+            refreshDialog.dismiss();
+        }
+    }
+
     private OnFocusChangeListener editLatitudeListener = new OnFocusChangeListener() {
         public void onFocusChange(View v, boolean hasFocus) {
             if (!hasFocus) {
@@ -104,8 +116,14 @@ public class AddLocationActivity extends LocatorActivity {
         super.onPause();
     }
 
+    @Override
+    protected void onDestroy() {
+        refreshDialog = null;
+        super.onDestroy();
+    }
+
     public void onClickLocation(View v) {
-        refreshDialog.show();
+        showRefreshDialog();
         startLocator();
     }
 
@@ -156,7 +174,7 @@ public class AddLocationActivity extends LocatorActivity {
         if (location == null) {
             return;
         }
-        refreshDialog.dismiss();
+        dismissRefreshDialog();
         longitudeEditText.setText(location.getLongitude() + "");
         latitudeEditText.setText(location.getLatitude() + "");
         locationNameEditText.setText(new StringBuffer().append(location.getCity()).append(',')
@@ -169,7 +187,7 @@ public class AddLocationActivity extends LocatorActivity {
         if (showMessage) {
             Toast.makeText(this, R.string.toast_location_fail, Toast.LENGTH_SHORT).show();
         }
-        refreshDialog.dismiss();
+        dismissRefreshDialog();
     }
 
     @Override

@@ -138,8 +138,8 @@ public class MainActivity extends LocatorActivity {
         this.locationTextView = (TextView) findViewById(R.id.textview_location);
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        weatherView = inflater.inflate(R.layout.linearlayout_weather, null);
-        satelliteView = inflater.inflate(R.layout.linearlayout_satellite, null);
+        weatherView = inflater.inflate(R.layout.linearlayout_weather, reportsViewPager, false);
+        satelliteView = inflater.inflate(R.layout.linearlayout_satellite, reportsViewPager, false);
         this.forecastScrollView = (HorizontalScrollView) weatherView
                 .findViewById(R.id.scrollview_forecast);
         this.templabelTextView = (TextView) weatherView.findViewById(R.id.textview_templabel);
@@ -267,6 +267,7 @@ public class MainActivity extends LocatorActivity {
 
     @Override
     protected void onDestroy() {
+        refreshDialog = null;
         cacheManager.close();
         super.onDestroy();
     }
@@ -290,8 +291,7 @@ public class MainActivity extends LocatorActivity {
                         .show();
                 return;
             }
-
-            refreshDialog.show();
+            showRefreshDialog();
             TaskContext taskContext = new TaskContext();
             taskContext.set(WeatherTask.KEY_URL, ConfigUtil.getString(Keys.HTTP_REAL_SERVER));
             taskContext.set(WeatherTask.KEY_LON, longitude);
@@ -343,6 +343,18 @@ public class MainActivity extends LocatorActivity {
         }
     }
 
+    private void showRefreshDialog() {
+        if (!isFinishing() && refreshDialog != null) {
+            refreshDialog.show();
+        }
+    }
+
+    private void dismissRefreshDialog() {
+        if (!isFinishing() && refreshDialog != null) {
+            refreshDialog.dismiss();
+        }
+    }
+
     private void startSatelliteTask() {
         JSONObject data = cacheManager.getSatelliteCache(longitude, latitude, 0.5);
         if (data != null && !satelliteCacheExpired(data)) {
@@ -355,7 +367,7 @@ public class MainActivity extends LocatorActivity {
                         .show();
                 return;
             }
-            refreshDialog.show();
+            showRefreshDialog();
             TaskContext taskContext = new TaskContext();
             SatelliteTask issTask = new SatelliteTask();
             issTask.addTaskListener(new WeakReference<Task.OnTaskListener>(satTaskListener));
@@ -419,6 +431,8 @@ public class MainActivity extends LocatorActivity {
             startActivity(chooser);
         } catch (ActivityNotFoundException e) {
             return false;
+        } catch (SecurityException e) {
+            return false;
         }
         return true;
     }
@@ -461,9 +475,7 @@ public class MainActivity extends LocatorActivity {
                 Toast.makeText(getApplicationContext(), R.string.toast_data_error,
                         Toast.LENGTH_SHORT).show();
             } finally {
-                if (!isFinishing()) {
-                    refreshDialog.dismiss();
-                }
+                dismissRefreshDialog();
             }
             StatManager.getInstance().sendWeatherStat(totalDelay, serverDelay);
         }
@@ -471,7 +483,7 @@ public class MainActivity extends LocatorActivity {
         @Override
         public void onTimeout(Object sender, TaskTimeoutEvent event) {
             if (!isFinishing()) {
-                refreshDialog.dismiss();
+                dismissRefreshDialog();
                 Toast.makeText(context, R.string.toast_timeout, Toast.LENGTH_SHORT).show();
                 forecastScrollView.removeAllViews();
             }
@@ -480,7 +492,7 @@ public class MainActivity extends LocatorActivity {
         @Override
         public void onTaskFailed(Object sender, TaskFailedEvent event) {
             if (!isFinishing()) {
-                refreshDialog.dismiss();
+                dismissRefreshDialog();
                 Toast.makeText(context, R.string.toast_failed, Toast.LENGTH_SHORT).show();
                 forecastScrollView.removeAllViews();
             }
@@ -511,9 +523,7 @@ public class MainActivity extends LocatorActivity {
             } catch (JSONException e) {
                 Toast.makeText(context, R.string.toast_data_error, Toast.LENGTH_SHORT).show();
             } finally {
-                if (!isFinishing()) {
-                    refreshDialog.dismiss();
-                }
+                dismissRefreshDialog();
             }
             StatManager.getInstance().sendSatelliteStat(delay);
         }
@@ -521,7 +531,7 @@ public class MainActivity extends LocatorActivity {
         @Override
         public void onTimeout(Object sender, TaskTimeoutEvent event) {
             if (!isFinishing()) {
-                refreshDialog.dismiss();
+                dismissRefreshDialog();
                 Toast.makeText(context, R.string.toast_timeout, Toast.LENGTH_SHORT).show();
                 forecastScrollView.removeAllViews();
             }
@@ -530,7 +540,7 @@ public class MainActivity extends LocatorActivity {
         @Override
         public void onTaskFailed(Object sender, TaskFailedEvent event) {
             if (!isFinishing()) {
-                refreshDialog.dismiss();
+                dismissRefreshDialog();
                 Toast.makeText(context, R.string.toast_failed, Toast.LENGTH_SHORT).show();
                 forecastScrollView.removeAllViews();
             }

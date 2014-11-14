@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDiskIOException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -90,6 +91,7 @@ public class CacheManager {
                     "INSERT INTO weather (updatetime, longitude, latitude, report) VALUES(datetime(?), ?, ?, ?)",
                     new Object[] { df.format(reportTime), longitude, latitude, report });
             mCache.setTransactionSuccessful();
+        } catch (SQLiteDiskIOException e) {
         } finally {
             mCache.endTransaction();
         }
