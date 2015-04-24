@@ -6,5 +6,5 @@ fi
 
 for ((INSTALL_CHANNEL = 1; INSTALL_CHANNEL <= 1; ++INSTALL_CHANNEL));
 do
-    ant ship -Dapp.channel=$INSTALL_CHANNEL;
+    ant ship -Dapp.channel=${INSTALL_CHANNEL};
 done
