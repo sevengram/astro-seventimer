@@ -1,14 +1,19 @@
 # Android generated
-bin/
-gen/
-.settings/
-dist/
-build/
+bin
+gen
+dist
+build
+out
+
+# Intellj IDEA
+.idea
+seventimer.iml
 
 # Ant
 local.properties
 
 # Eclipse
+.settings
 .classpath
 .project
 .externalToolBuilders/
