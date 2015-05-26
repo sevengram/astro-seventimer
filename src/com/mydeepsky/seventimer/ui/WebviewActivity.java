@@ -59,11 +59,11 @@ public class WebviewActivity extends BaseActivity {
         Intent intent = getIntent();
         timepoint = intent.getIntExtra(EXTRA_TIMEPOINT, 0);
         String url = String.format(Locale.getDefault(),
-                ConfigUtil.getString(Keys.CHART_7TIMER_WEATHER),
-                intent.getIntExtra(EXTRA_INITTIME, 0), intent.getStringExtra(EXTRA_GEOZONE),
-                timepoint);
+            ConfigUtil.getString(Keys.CHART_7TIMER_WEATHER),
+            intent.getIntExtra(EXTRA_INITTIME, 0), intent.getStringExtra(EXTRA_GEOZONE),
+            timepoint);
         webview.loadDataWithBaseURL(null, String.format("<center><img src=%s></center>", url),
-                "text/html", "utf-8", null);
+            "text/html", "utf-8", null);
     }
 
     protected class SimpleWebChromeClient extends WebChromeClient {
@@ -80,6 +80,7 @@ public class WebviewActivity extends BaseActivity {
         }
     }
 
+
     protected class SimpleWebViewClient extends WebViewClient {
 
         @Override
@@ -93,21 +94,21 @@ public class WebviewActivity extends BaseActivity {
         int screenDensity = getResources().getDisplayMetrics().densityDpi;
         ZoomDensity zoomDensity;
         switch (screenDensity) {
-        case DisplayMetrics.DENSITY_LOW:
-            zoomDensity = ZoomDensity.CLOSE;
-            break;
-        case DisplayMetrics.DENSITY_MEDIUM:
-            zoomDensity = ZoomDensity.MEDIUM;
-            break;
-        case DisplayMetrics.DENSITY_HIGH:
-            zoomDensity = ZoomDensity.FAR;
-            break;
-        case DisplayMetrics.DENSITY_XHIGH:
-            zoomDensity = ZoomDensity.FAR;
-            break;
-        default:
-            zoomDensity = ZoomDensity.MEDIUM;
-            break;
+            case DisplayMetrics.DENSITY_LOW:
+                zoomDensity = ZoomDensity.CLOSE;
+                break;
+            case DisplayMetrics.DENSITY_MEDIUM:
+                zoomDensity = ZoomDensity.MEDIUM;
+                break;
+            case DisplayMetrics.DENSITY_HIGH:
+                zoomDensity = ZoomDensity.FAR;
+                break;
+            case DisplayMetrics.DENSITY_XHIGH:
+                zoomDensity = ZoomDensity.FAR;
+                break;
+            default:
+                zoomDensity = ZoomDensity.MEDIUM;
+                break;
         }
         return zoomDensity;
     }
@@ -120,13 +121,7 @@ public class WebviewActivity extends BaseActivity {
             ZoomButtonsController mZoomButtonsController = new ZoomButtonsController(view);
             mZoomButtonsController.getZoomControls().setVisibility(View.GONE);
             field.set(view, mZoomButtonsController);
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (SecurityException | NoSuchFieldException | IllegalArgumentException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }
@@ -138,11 +133,11 @@ public class WebviewActivity extends BaseActivity {
         Intent intent = getIntent();
         timepoint += 3;
         String url = String.format(Locale.getDefault(),
-                ConfigUtil.getString(Keys.CHART_7TIMER_WEATHER),
-                intent.getIntExtra(EXTRA_INITTIME, 0), intent.getStringExtra(EXTRA_GEOZONE),
-                timepoint);
+            ConfigUtil.getString(Keys.CHART_7TIMER_WEATHER),
+            intent.getIntExtra(EXTRA_INITTIME, 0), intent.getStringExtra(EXTRA_GEOZONE),
+            timepoint);
         webview.loadDataWithBaseURL(null, String.format("<center><img src=%s></center>", url),
-                "text/html", "utf-8", null);
+            "text/html", "utf-8", null);
     }
 
     public void onClickPreviousImage(View v) {
@@ -152,10 +147,10 @@ public class WebviewActivity extends BaseActivity {
         Intent intent = getIntent();
         timepoint -= 3;
         String url = String.format(Locale.getDefault(),
-                ConfigUtil.getString(Keys.CHART_7TIMER_WEATHER),
-                intent.getIntExtra(EXTRA_INITTIME, 0), intent.getStringExtra(EXTRA_GEOZONE),
-                timepoint);
+            ConfigUtil.getString(Keys.CHART_7TIMER_WEATHER),
+            intent.getIntExtra(EXTRA_INITTIME, 0), intent.getStringExtra(EXTRA_GEOZONE),
+            timepoint);
         webview.loadDataWithBaseURL(null, String.format("<center><img src=%s></center>", url),
-                "text/html", "utf-8", null);
+            "text/html", "utf-8", null);
     }
 }

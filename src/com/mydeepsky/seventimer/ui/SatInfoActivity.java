@@ -4,12 +4,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.mydeepsky.android.util.DisplayUtil;
 import com.mydeepsky.seventimer.R;
 import com.mydeepsky.seventimer.data.ISS;
@@ -53,16 +51,15 @@ public class SatInfoActivity extends BaseActivity {
 
     private View getView(Context context, Satellite satellite) {
         View infoView = null;
-        LayoutInflater inflater = LayoutInflater.from(context);
         if (satellite.getType() == Satellite.ISS) {
             ISS iss = (ISS) satellite;
-            infoView = inflater.inflate(R.layout.linearlayout_iss, null);
+            infoView = View.inflate(context, R.layout.linearlayout_iss, null);
             TextView issmagTextView = (TextView) infoView.findViewById(R.id.textview_iss_mag);
             TextView dateTextView = (TextView) infoView.findViewById(R.id.textview_iss_date);
             TextView starttimeTextView = (TextView) infoView
-                    .findViewById(R.id.textview_iss_starttime);
+                .findViewById(R.id.textview_iss_starttime);
             TextView startposTextView = (TextView) infoView
-                    .findViewById(R.id.textview_iss_startpos);
+                .findViewById(R.id.textview_iss_startpos);
             TextView maxtimeTextView = (TextView) infoView.findViewById(R.id.textview_iss_maxtime);
             TextView maxposTextView = (TextView) infoView.findViewById(R.id.textview_iss_maxpos);
             TextView endtimeTextView = (TextView) infoView.findViewById(R.id.textview_iss_endtime);
@@ -70,18 +67,18 @@ public class SatInfoActivity extends BaseActivity {
             issmagTextView.setText(String.format("ISS (%.1f)", iss.getMagnitude()));
             dateTextView.setText(getString(R.string.text_satinfo_date, iss.getDate()));
             starttimeTextView.setText(getString(R.string.text_satinfo_start_time,
-                    iss.getStartTime()));
+                iss.getStartTime()));
             startposTextView
-                    .setText(getString(R.string.text_satinfo_start_pos, iss.getStartAltAz()));
+                .setText(getString(R.string.text_satinfo_start_pos, iss.getStartAltAz()));
             maxtimeTextView.setText(getString(R.string.text_satinfo_highest_time,
-                    iss.getHighestTimeString()));
+                iss.getHighestTimeString()));
             maxposTextView.setText(getString(R.string.text_satinfo_highest_pos,
-                    iss.getHighestAltAz()));
+                iss.getHighestAltAz()));
             endtimeTextView.setText(getString(R.string.text_satinfo_end_time, iss.getEndTime()));
             endposTextView.setText(getString(R.string.text_satinfo_end_pos, iss.getEndAltAz()));
         } else if (satellite.getType() == Satellite.IRIDIUM) {
             Iridium iridium = (Iridium) satellite;
-            infoView = inflater.inflate(R.layout.linearlayout_iridium, null);
+            infoView = View.inflate(context, R.layout.linearlayout_iridium, null);
             TextView ifmagTextView = (TextView) infoView.findViewById(R.id.textview_iridium_mag);
             TextView dateTextView = (TextView) infoView.findViewById(R.id.textview_iridium_date);
             TextView timeTextView = (TextView) infoView.findViewById(R.id.textview_iridium_time);
@@ -89,13 +86,13 @@ public class SatInfoActivity extends BaseActivity {
             TextView cenTextView = (TextView) infoView.findViewById(R.id.textview_iridium_center);
             TextView sunTextView = (TextView) infoView.findViewById(R.id.textview_iridium_sunalt);
             ifmagTextView.setText(String.format("%s (%.1f)", iridium.getName(),
-                    iridium.getMagnitude()));
+                iridium.getMagnitude()));
             dateTextView.setText(getString(R.string.text_satinfo_date, iridium.getDate()));
             timeTextView.setText(getString(R.string.text_satinfo_time,
-                    iridium.getHighestTimeString()));
+                iridium.getHighestTimeString()));
             posTextView.setText(getString(R.string.text_satinfo_pos, iridium.getHighestAltAz()));
             cenTextView.setText(getString(R.string.text_satinfo_flare_center,
-                    iridium.getMagCenter(), iridium.getDistance()));
+                iridium.getMagCenter(), iridium.getDistance()));
             sunTextView.setText(getString(R.string.text_satinfo_sun_alt, iridium.getSunAlt()));
         }
         return infoView;

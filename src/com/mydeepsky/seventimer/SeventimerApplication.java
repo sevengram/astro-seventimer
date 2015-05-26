@@ -17,8 +17,6 @@ public class SeventimerApplication extends Application {
         NetworkManager.init(getApplicationContext());
         StatManager.getInstance().init(getApplicationContext());
         initPaths();
-
-        StatManager.getInstance().sendDeviceStat();
     }
 
     private void initPaths() {

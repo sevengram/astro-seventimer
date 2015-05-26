@@ -1,25 +1,23 @@
 package com.mydeepsky.seventimer.core.cache;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDiskIOException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
 import com.mydeepsky.android.util.DirManager;
 import com.mydeepsky.android.util.FileUtil;
 import com.mydeepsky.android.util.ImageUtil;
 import com.mydeepsky.android.util.astro.TimeMath;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class CacheManager {
     private SQLiteDatabase mCache;
@@ -88,10 +86,10 @@ public class CacheManager {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
             df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
             mCache.execSQL(
-                    "INSERT INTO weather (updatetime, longitude, latitude, report) VALUES(datetime(?), ?, ?, ?)",
-                    new Object[] { df.format(reportTime), longitude, latitude, report });
+                "INSERT INTO weather (updatetime, longitude, latitude, report) VALUES(datetime(?), ?, ?, ?)",
+                new Object[] {df.format(reportTime), longitude, latitude, report});
             mCache.setTransactionSuccessful();
-        } catch (SQLiteDiskIOException e) {
+        } catch (SQLiteDiskIOException ignored) {
         } finally {
             mCache.endTransaction();
         }
@@ -104,7 +102,7 @@ public class CacheManager {
         mCache.beginTransaction();
         try {
             mCache.execSQL("INSERT INTO satellite (longitude, latitude, report) VALUES(?, ?, ?)",
-                    new Object[] { longitude, latitude, report });
+                new Object[] {longitude, latitude, report});
             mCache.setTransactionSuccessful();
         } finally {
             mCache.endTransaction();
@@ -116,10 +114,10 @@ public class CacheManager {
             return null;
         }
         Cursor c = mCache
-                .rawQuery(
-                        "SELECT report FROM satellite WHERE abs(longitude - ?) < 0.001 AND abs(latitude - ?) < 0.001 AND julianday() < julianday(updatetime)+?  ORDER BY updatetime DESC",
-                        new String[] { String.valueOf(longitude), String.valueOf(latitude),
-                                String.valueOf(expiredtime) });
+            .rawQuery(
+                "SELECT report FROM satellite WHERE abs(longitude - ?) < 0.001 AND abs(latitude - ?) < 0.001 AND julianday() < julianday(updatetime)+?  ORDER BY updatetime DESC",
+                new String[] {String.valueOf(longitude), String.valueOf(latitude),
+                    String.valueOf(expiredtime)});
         if (c.moveToFirst()) {
             try {
                 return new JSONObject(c.getString(c.getColumnIndex("report")));
@@ -135,20 +133,19 @@ public class CacheManager {
         if (!checkCache()) {
             return null;
         }
-        Cursor c = mCache
-                .rawQuery(
-                        "SELECT report FROM weather WHERE abs(longitude - ?) < 0.1 AND abs(latitude - ?) < 0.1 AND julianday() < julianday(updatetime)+? ORDER BY updatetime DESC",
-                        new String[] { String.valueOf(longitude), String.valueOf(latitude),
-                                String.valueOf(expiredtime) });
+        Cursor c = mCache.rawQuery(
+            "SELECT report FROM weather WHERE abs(longitude - ?) < 0.1 AND abs(latitude - ?) < 0.1 AND julianday() < julianday(updatetime)+? ORDER BY updatetime DESC",
+            new String[] {String.valueOf(longitude), String.valueOf(latitude),
+                String.valueOf(expiredtime)});
+        JSONObject result = null;
         if (c.moveToFirst()) {
             try {
-                return new JSONObject(c.getString(c.getColumnIndex("report")));
-            } catch (JSONException e) {
-                return null;
+                result = new JSONObject(c.getString(c.getColumnIndex("report")));
+            } catch (JSONException ignored) {
             }
-        } else {
-            return null;
         }
+        c.close();
+        return result;
     }
 
     public void cleanCache(double expiredtime) {
@@ -156,9 +153,9 @@ public class CacheManager {
             return;
         }
         mCache.delete("satellite", "julianday(updatetime) < julianday() - ?",
-                new String[] { String.valueOf(expiredtime) });
+            new String[] {String.valueOf(expiredtime)});
         mCache.delete("weather", "julianday(updatetime) < julianday() - ?",
-                new String[] { String.valueOf(expiredtime) });
+            new String[] {String.valueOf(expiredtime)});
     }
 
     public void clearSatelliteCache() {

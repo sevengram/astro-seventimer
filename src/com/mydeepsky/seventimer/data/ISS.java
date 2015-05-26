@@ -63,13 +63,7 @@ public class ISS extends Satellite {
                 cal2.add(Calendar.DATE, 1);
             }
             this.endTime = cal2.getTime();
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (NumberFormatException e) {
+        } catch (JSONException | ParseException | NumberFormatException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -99,10 +93,6 @@ public class ISS extends Satellite {
     public String getEndTime() {
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss", Locale.US);
         return formatter.format(endTime);
-    }
-
-    public Date getEndTimeDate() {
-        return endTime;
     }
 
     public String getEndAltAz() {

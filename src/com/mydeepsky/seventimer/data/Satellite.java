@@ -1,5 +1,7 @@
 package com.mydeepsky.seventimer.data;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -70,7 +72,7 @@ public abstract class Satellite implements Comparable<Satellite>, Serializable {
     public String getHighestInfo() {
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss", Locale.US);
         return String.format(Locale.US, "%s %s/%s", formatter.format(highestTime), highestAlt,
-                highestAz);
+            highestAz);
     }
 
     public Date getHighestTime() {
@@ -87,7 +89,7 @@ public abstract class Satellite implements Comparable<Satellite>, Serializable {
     }
 
     public Map<String, Object> getMap() {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         map.put(KEY_IMAGE, getIcon());
         map.put(KEY_NAME, name);
         map.put(KEY_MAG, magnitude);
@@ -99,7 +101,7 @@ public abstract class Satellite implements Comparable<Satellite>, Serializable {
     }
 
     @Override
-    public int compareTo(Satellite another) {
+    public int compareTo(@NonNull Satellite another) {
         return this.highestTime.compareTo(another.highestTime);
     }
 

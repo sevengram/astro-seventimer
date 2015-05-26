@@ -108,7 +108,7 @@ public class AddLocationActivity extends LocatorActivity {
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-    };
+    }
 
     @Override
     protected void onPause() {
@@ -179,7 +179,7 @@ public class AddLocationActivity extends LocatorActivity {
         latitudeEditText.setText(location.getLatitude() + "");
         locationNameEditText.setText(new StringBuffer().append(location.getCity()).append(',')
                 .append(location.getDistrict()));
-        StatManager.getInstance().sendLocationStat(location, costTime, locator);
+        StatManager.getInstance().sendLocationStat(costTime, locator);
     }
 
     @Override

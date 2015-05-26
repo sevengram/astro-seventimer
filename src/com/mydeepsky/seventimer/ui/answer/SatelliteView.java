@@ -1,35 +1,14 @@
 package com.mydeepsky.seventimer.ui.answer;
 
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
-
-import com.mydeepsky.android.task.Task;
 import com.mydeepsky.android.task.Task.OnTaskListener;
-import com.mydeepsky.android.task.TaskCancelEvent;
-import com.mydeepsky.android.task.TaskContext;
-import com.mydeepsky.android.task.TaskFailedEvent;
-import com.mydeepsky.android.task.TaskFinishedEvent;
-import com.mydeepsky.android.task.TaskTimeoutEvent;
+import com.mydeepsky.android.task.*;
 import com.mydeepsky.android.util.ImageUtil;
 import com.mydeepsky.android.util.NetworkManager;
 import com.mydeepsky.seventimer.R;
@@ -40,15 +19,21 @@ import com.mydeepsky.seventimer.data.Iridium;
 import com.mydeepsky.seventimer.data.Satellite;
 import com.mydeepsky.seventimer.ui.SatInfoActivity;
 import com.mydeepsky.seventimer.ui.dialog.DialogManager;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.ref.WeakReference;
+import java.util.*;
 
 public class SatelliteView implements IAnswerView {
     private View root;
 
     private Context context;
 
-    private List<Map<String, Object>> listItem = new ArrayList<Map<String, Object>>();
+    private List<Map<String, Object>> listItem = new ArrayList<>();
 
-    private List<Satellite> satellites = new ArrayList<Satellite>();
+    private List<Satellite> satellites = new ArrayList<>();
 
     private Dialog refreshDialog;
 
@@ -61,12 +46,12 @@ public class SatelliteView implements IAnswerView {
         this.cacheManager = CacheManager.getInstance(context);
         ListView satelliteListView = (ListView) root.findViewById(R.id.listview_passes);
         SimpleAdapter listItemAdapter = new SimpleAdapter(context, listItem,
-                R.layout.list_item_satellite, new String[] { Satellite.KEY_IMAGE,
-                        Satellite.KEY_MAG, Satellite.KEY_NAME, Satellite.KEY_DATE,
-                        Satellite.KEY_START, Satellite.KEY_HIGHEST, Satellite.KEY_END }, new int[] {
-                        R.id.imageview_satellite, R.id.textview_magnitude, R.id.textview_satname,
-                        R.id.textview_date, R.id.textview_startinfo, R.id.textview_highestinfo,
-                        R.id.textview_endinfo });
+            R.layout.list_item_satellite, new String[] {Satellite.KEY_IMAGE,
+            Satellite.KEY_MAG, Satellite.KEY_NAME, Satellite.KEY_DATE,
+            Satellite.KEY_START, Satellite.KEY_HIGHEST, Satellite.KEY_END}, new int[] {
+            R.id.imageview_satellite, R.id.textview_magnitude, R.id.textview_satname,
+            R.id.textview_date, R.id.textview_startinfo, R.id.textview_highestinfo,
+            R.id.textview_endinfo});
         satelliteListView.setAdapter(listItemAdapter);
         satelliteListView.setOnItemClickListener(listener);
     }
@@ -124,14 +109,14 @@ public class SatelliteView implements IAnswerView {
             } else {
                 if (!NetworkManager.isNetworkAvailable()) {
                     Toast.makeText(context, R.string.toast_without_network, Toast.LENGTH_SHORT)
-                            .show();
+                        .show();
                 }
                 TaskContext taskContext = new TaskContext();
                 taskContext.set(ImageTask.KEY_SATINFO, satellite);
                 ImageTask task = ImageTask.getTask(satellite);
                 if (task != null) {
                     refreshDialog.show();
-                    task.addTaskListener(new WeakReference<Task.OnTaskListener>(taskListener));
+                    task.addTaskListener(new WeakReference<>(taskListener));
                     task.execute(taskContext);
                 }
             }

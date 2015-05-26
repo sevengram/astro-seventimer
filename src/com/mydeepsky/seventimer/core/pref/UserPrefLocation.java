@@ -60,7 +60,7 @@ public class UserPrefLocation {
             location.put("name", name);
             location.put("lat", latitude);
             location.put("lon", longitude);
-        } catch (JSONException e) {
+        } catch (JSONException ignored) {
         }
         return location;
     }

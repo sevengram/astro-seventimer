@@ -41,10 +41,7 @@ public class Iridium extends Satellite {
             df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
             this.highestTime = df.parse(data.getString("time"));
             this.mjd = String.format(Locale.US, "%.6f", TimeMath.date2mjd(highestTime));
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ParseException e) {
+        } catch (JSONException | ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

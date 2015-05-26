@@ -34,8 +34,7 @@ public class WeatherView implements IAnswerView {
 
     @Override
     public View getView(Context context) {
-        LinearLayout layout = (LinearLayout) LayoutInflater.from(context).inflate(
-                R.layout.answer_container, null);
+        LinearLayout layout = (LinearLayout) View.inflate(context, R.layout.answer_container, null);
         LinearLayout parentLayout = (LinearLayout) layout.findViewById(R.id.linearlayout_results);
         addChildView(context, parentLayout);
         return layout;
@@ -60,8 +59,8 @@ public class WeatherView implements IAnswerView {
 
     @Override
     public void addChildView(final Context context, LinearLayout parentLayout) {
-        Queue<Date> riseSetTimeQueue = new PriorityQueue<Date>();
-        Queue<Date> twilightTimeQueue = new PriorityQueue<Date>();
+        Queue<Date> riseSetTimeQueue = new PriorityQueue<>();
+        Queue<Date> twilightTimeQueue = new PriorityQueue<>();
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmm", Locale.US);
         df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
         try {
@@ -73,10 +72,7 @@ public class WeatherView implements IAnswerView {
             for (int i = 0; i < twilight.length(); i++) {
                 twilightTimeQueue.add(df.parse(twilight.getString(i)));
             }
-        } catch (JSONException e) {
-
-        } catch (ParseException e) {
-
+        } catch (JSONException | ParseException ignored) {
         }
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(initTime);

@@ -37,7 +37,7 @@ public class SettingsActivity extends BaseActivity {
         this.locationSpinner = (Spinner) findViewById(R.id.spinner_location);
 
         this.userPrefs = SettingsProvider.getInstance(this).getPrefs();
-        this.adapter = new ArrayAdapter<UserPrefLocation>(this,
+        this.adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, this.userPrefs.getSavedLocations());
         this.adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         this.locationSpinner.setAdapter(this.adapter);

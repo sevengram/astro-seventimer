@@ -1,20 +1,5 @@
 package com.mydeepsky.seventimer.ui;
 
-import java.lang.ref.WeakReference;
-import java.lang.reflect.Method;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -31,29 +16,18 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.mydeepsky.android.location.Locator;
 import com.mydeepsky.android.location.Locator.LocationInfo;
 import com.mydeepsky.android.location.LocatorActivity;
 import com.mydeepsky.android.location.LocatorFactory;
 import com.mydeepsky.android.location.LocatorFactory.LocatorType;
-import com.mydeepsky.android.task.Task;
+import com.mydeepsky.android.task.*;
 import com.mydeepsky.android.task.Task.OnTaskListener;
-import com.mydeepsky.android.task.TaskCancelEvent;
-import com.mydeepsky.android.task.TaskContext;
-import com.mydeepsky.android.task.TaskFailedEvent;
-import com.mydeepsky.android.task.TaskFinishedEvent;
-import com.mydeepsky.android.task.TaskTimeoutEvent;
 import com.mydeepsky.android.ui.widget.CustomerViewPager;
 import com.mydeepsky.android.util.ConfigUtil;
 import com.mydeepsky.android.util.Keys;
@@ -73,6 +47,15 @@ import com.mydeepsky.seventimer.ui.answer.WeatherView;
 import com.mydeepsky.seventimer.ui.dialog.DialogManager;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.ref.WeakReference;
+import java.lang.reflect.Method;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class MainActivity extends LocatorActivity {
     static final String TAG = "_MainActivity";
@@ -92,7 +75,6 @@ public class MainActivity extends LocatorActivity {
     private Dialog refreshDialog;
 
     private CustomerViewPager reportsViewPager;
-    private View weatherView;
     private View satelliteView;
     private TextView locationTextView;
     private TextView updatetimeTextView;
@@ -138,13 +120,13 @@ public class MainActivity extends LocatorActivity {
         this.locationTextView = (TextView) findViewById(R.id.textview_location);
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        weatherView = inflater.inflate(R.layout.linearlayout_weather, reportsViewPager, false);
+        View weatherView = inflater.inflate(R.layout.linearlayout_weather, reportsViewPager, false);
         satelliteView = inflater.inflate(R.layout.linearlayout_satellite, reportsViewPager, false);
         this.forecastScrollView = (HorizontalScrollView) weatherView
-                .findViewById(R.id.scrollview_forecast);
+            .findViewById(R.id.scrollview_forecast);
         this.templabelTextView = (TextView) weatherView.findViewById(R.id.textview_templabel);
 
-        reportsViewList = new ArrayList<View>();
+        reportsViewList = new ArrayList<>();
         reportsViewList.add(weatherView);
         reportsViewList.add(satelliteView);
 
@@ -154,7 +136,6 @@ public class MainActivity extends LocatorActivity {
 
         refreshDialog = DialogManager.createRefreshDialog(context);
         loadSettings();
-        StatManager.getInstance().sendStartApp(null);
         UmengUpdateAgent.update(this);
     }
 
@@ -176,29 +157,29 @@ public class MainActivity extends LocatorActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         setIconEnable(menu, true);
         menu.add(Menu.NONE, MENU_ABOUT_ID, 1, R.string.menu_about).setIcon(
-                android.R.drawable.ic_menu_info_details);
+            android.R.drawable.ic_menu_info_details);
         menu.add(Menu.NONE, MENU_PREFERENCE_ID, 2, R.string.menu_preferences).setIcon(
-                android.R.drawable.ic_menu_preferences);
+            android.R.drawable.ic_menu_preferences);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case MENU_ABOUT_ID:
-            Dialog dialog = new AlertDialog.Builder(this).setIcon(R.drawable.icon)
+            case MENU_ABOUT_ID:
+                Dialog dialog = new AlertDialog.Builder(this).setIcon(R.drawable.icon)
                     .setTitle(R.string.app_name).setMessage(R.string.app_about)
                     .setPositiveButton(R.string.btn_ok, new OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
                         }
                     }).create();
-            dialog.show();
-            break;
-        case MENU_PREFERENCE_ID:
-            settingsButton.performClick();
-            break;
-        default:
-            break;
+                dialog.show();
+                break;
+            case MENU_PREFERENCE_ID:
+                settingsButton.performClick();
+                break;
+            default:
+                break;
         }
         return false;
     }
@@ -221,14 +202,14 @@ public class MainActivity extends LocatorActivity {
         this.longitude = userPrefs.getCurrentLocation().getLongitude();
         this.locationName = userPrefs.getCurrentLocation().getName();
         this.locator = LocatorFactory.createLocator(this,
-                userPrefs.isUseBaidu() ? LocatorType.BAIDU : LocatorType.GOOGLE);
+            userPrefs.isUseBaidu() ? LocatorType.BAIDU : LocatorType.GOOGLE);
         this.locator.setOnLocationUpdateListener(this);
         if (!locationName.equals(getText(R.string.text_current_location))) {
             locationTextView.setText(String.format("%s (%.3f, %.3f)", this.locationName,
-                    this.longitude, this.latitude));
+                this.longitude, this.latitude));
         }
         this.templabelTextView.setText(String.format(getText(R.string.format_temperature)
-                .toString(), this.userPrefs.getTempUnitString()));
+            .toString(), this.userPrefs.getTempUnitString()));
     }
 
     @Override
@@ -239,7 +220,7 @@ public class MainActivity extends LocatorActivity {
             if (locationName.equals(getText(R.string.text_current_location))) {
                 locationButton.performClick();
             } else if (data.getBooleanExtra(SettingsActivity.EXTRA_NEED_UPDATE, false)
-                    || forecastScrollView.getChildCount() == 0) {
+                || forecastScrollView.getChildCount() == 0) {
                 weatherUpdated = false;
                 satelliteUpdated = false;
                 updateButton.performClick();
@@ -288,7 +269,7 @@ public class MainActivity extends LocatorActivity {
         } else {
             if (!NetworkManager.isNetworkAvailable()) {
                 Toast.makeText(this.context, R.string.toast_without_network, Toast.LENGTH_SHORT)
-                        .show();
+                    .show();
                 return;
             }
             showRefreshDialog();
@@ -299,7 +280,7 @@ public class MainActivity extends LocatorActivity {
             taskContext.set(WeatherTask.KEY_START_TIME, System.currentTimeMillis());
 
             WeatherTask task = new WeatherTask();
-            task.addTaskListener(new WeakReference<Task.OnTaskListener>(weatherTaskListener));
+            task.addTaskListener(new WeakReference<>(weatherTaskListener));
             task.execute(taskContext);
         }
     }
@@ -309,15 +290,15 @@ public class MainActivity extends LocatorActivity {
             JSONArray issRecords = data.getJSONArray("iss");
             JSONArray iridiumRecords = data.getJSONArray("iridium");
             if (issRecords == null || iridiumRecords == null
-                    || (issRecords.length() == 0 && iridiumRecords.length() == 0)) {
+                || (issRecords.length() == 0 && iridiumRecords.length() == 0)) {
                 return true;
             }
             int expiredCount = 0;
             int futureCount = 0;
-            if (iridiumRecords != null && iridiumRecords.length() != 0) {
+            if (iridiumRecords.length() != 0) {
                 for (int i = 0; i < iridiumRecords.length(); i++) {
                     Date highestTime = new Iridium(iridiumRecords.getJSONObject(i))
-                            .getHighestTime();
+                        .getHighestTime();
                     if (System.currentTimeMillis() - highestTime.getTime() > TimeMath.ONE_DAY_MS) {
                         return true;
                     } else if (System.currentTimeMillis() - highestTime.getTime() >= 0) {
@@ -327,7 +308,7 @@ public class MainActivity extends LocatorActivity {
                     }
                 }
             }
-            if (issRecords != null && issRecords.length() != 0) {
+            if (issRecords.length() != 0) {
                 Date highestTime = new ISS(issRecords.getJSONObject(0)).getHighestTime();
                 if (System.currentTimeMillis() - highestTime.getTime() > TimeMath.ONE_DAY_MS) {
                     return true;
@@ -364,13 +345,13 @@ public class MainActivity extends LocatorActivity {
         } else {
             if (!NetworkManager.isNetworkAvailable()) {
                 Toast.makeText(this.context, R.string.toast_without_network, Toast.LENGTH_SHORT)
-                        .show();
+                    .show();
                 return;
             }
             showRefreshDialog();
             TaskContext taskContext = new TaskContext();
             SatelliteTask issTask = new SatelliteTask();
-            issTask.addTaskListener(new WeakReference<Task.OnTaskListener>(satTaskListener));
+            issTask.addTaskListener(new WeakReference<>(satTaskListener));
             taskContext.set(SatelliteTask.KEY_LAT, latitude);
             taskContext.set(SatelliteTask.KEY_LON, longitude);
             taskContext.set(SatelliteTask.KEY_START_TIME, System.currentTimeMillis());
@@ -391,11 +372,11 @@ public class MainActivity extends LocatorActivity {
     public void onClickShareWechat(View v) {
         if (!callWeChat()) {
             Dialog dialog = new AlertDialog.Builder(this).setIcon(R.drawable.wechat_icon)
-                    .setTitle(R.string.wechat_name).setMessage(R.string.wechat_info)
-                    .setPositiveButton(R.string.btn_ok, new OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                        }
-                    }).create();
+                .setTitle(R.string.wechat_name).setMessage(R.string.wechat_info)
+                .setPositiveButton(R.string.btn_ok, new OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                    }
+                }).create();
             dialog.show();
         }
     }
@@ -408,7 +389,7 @@ public class MainActivity extends LocatorActivity {
         PackageManager pm = getPackageManager();
         List<ResolveInfo> resInfo = pm.queryIntentActivities(intent, 0);
         Collections.sort(resInfo, new ResolveInfo.DisplayNameComparator(pm));
-        List<Intent> targetedIntents = new ArrayList<Intent>();
+        List<Intent> targetedIntents = new ArrayList<>();
         for (ResolveInfo info : resInfo) {
             Intent targeted = new Intent(Intent.ACTION_VIEW);
             ActivityInfo activityInfo = info.activityInfo;
@@ -423,9 +404,9 @@ public class MainActivity extends LocatorActivity {
             return false;
         }
         Intent chooser = Intent.createChooser(targetedIntents.remove(0),
-                getString(R.string.title_choose_wechat));
+            getString(R.string.title_choose_wechat));
         chooser.setClassName("android", "com.android.internal.app.ResolverActivity");
-        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedIntents.toArray(new Parcelable[] {}));
+        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedIntents.toArray(new Parcelable[targetedIntents.size()]));
         try {
             StatManager.getInstance().sendWechatStat();
             startActivity(chooser);
@@ -439,22 +420,22 @@ public class MainActivity extends LocatorActivity {
 
     public void onClickSwitchReport(View v) {
         switch (reportMode) {
-        case MODE_WEATHER:
-            reportMode = MODE_SATELLITE;
-            reportsViewPager.setCurrentItem(1);
-            switchReportButton.setImageResource(R.drawable.btn_switch_weather);
-            if (!satelliteUpdated) {
-                startSatelliteTask();
-            }
-            break;
-        case MODE_SATELLITE:
-            reportMode = MODE_WEATHER;
-            reportsViewPager.setCurrentItem(0);
-            switchReportButton.setImageResource(R.drawable.btn_switch_sat);
-            if (!weatherUpdated) {
-                startWeatherTask();
-            }
-            break;
+            case MODE_WEATHER:
+                reportMode = MODE_SATELLITE;
+                reportsViewPager.setCurrentItem(1);
+                switchReportButton.setImageResource(R.drawable.btn_switch_weather);
+                if (!satelliteUpdated) {
+                    startSatelliteTask();
+                }
+                break;
+            case MODE_SATELLITE:
+                reportMode = MODE_WEATHER;
+                reportsViewPager.setCurrentItem(0);
+                switchReportButton.setImageResource(R.drawable.btn_switch_sat);
+                if (!weatherUpdated) {
+                    startWeatherTask();
+                }
+                break;
         }
     }
 
@@ -465,7 +446,7 @@ public class MainActivity extends LocatorActivity {
             TaskContext taskContext = event.getContext();
             String response = (String) taskContext.get(WeatherTask.KEY_RESULT);
             long totalDelay = (Long) taskContext.get(Task.KEY_END_TIME)
-                    - (Long) taskContext.get(Task.KEY_START_TIME);
+                - (Long) taskContext.get(Task.KEY_START_TIME);
             long serverDelay = -1;
             try {
                 JSONObject jsonObject = new JSONObject(response);
@@ -473,7 +454,7 @@ public class MainActivity extends LocatorActivity {
                 createWeatherView(jsonObject.getJSONObject("data"), true);
             } catch (JSONException e) {
                 Toast.makeText(getApplicationContext(), R.string.toast_data_error,
-                        Toast.LENGTH_SHORT).show();
+                    Toast.LENGTH_SHORT).show();
             } finally {
                 dismissRefreshDialog();
             }
@@ -513,7 +494,7 @@ public class MainActivity extends LocatorActivity {
             TaskContext taskContext = event.getContext();
             String response = (String) taskContext.get(SatelliteTask.KEY_RESULT);
             long delay = (Long) taskContext.get(Task.KEY_END_TIME)
-                    - (Long) taskContext.get(Task.KEY_START_TIME);
+                - (Long) taskContext.get(Task.KEY_START_TIME);
             cacheManager.createSatelliteCache(longitude, latitude, response);
             try {
                 JSONObject data = new JSONObject(response);
@@ -571,11 +552,9 @@ public class MainActivity extends LocatorActivity {
             weatherUpdated = true;
             if (SettingsProvider.getInstance(context).isNewLaunch()) {
                 Toast.makeText(getApplicationContext(), R.string.toast_cloud_info,
-                        Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_LONG).show();
             }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (ParseException | JSONException e) {
             e.printStackTrace();
         }
     }
@@ -590,10 +569,10 @@ public class MainActivity extends LocatorActivity {
         locationName = location.toString();
         userPrefs.setCurrentLocation(longitude, latitude, locationName);
         locationTextView.setText(String
-                .format("%s (%.3f, %.3f)", locationName, longitude, latitude));
+            .format("%s (%.3f, %.3f)", locationName, longitude, latitude));
         weatherUpdated = false;
         satelliteUpdated = false;
-        StatManager.getInstance().sendLocationStat(location, costTime, locator);
+        StatManager.getInstance().sendLocationStat(costTime, locator);
         updateButton.performClick();
     }
 

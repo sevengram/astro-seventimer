@@ -20,7 +20,7 @@ public class UserPrefs {
     public UserPrefs() {
         this.mTempUnit = TempUnit.CEL;
         this.mCurrentLocation = new UserPrefLocation();
-        this.mSavedLocations = new ArrayList<UserPrefLocation>();
+        this.mSavedLocations = new ArrayList<>();
         this.mUseBaidu = true;
     }
 
