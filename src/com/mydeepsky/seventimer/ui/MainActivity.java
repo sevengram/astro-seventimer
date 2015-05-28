@@ -3,17 +3,11 @@ package com.mydeepsky.seventimer.ui;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.*;
@@ -370,52 +364,6 @@ public class MainActivity extends LocatorActivity {
     }
 
     public void onClickShareWechat(View v) {
-        if (!callWeChat()) {
-            Dialog dialog = new AlertDialog.Builder(this).setIcon(R.drawable.wechat_icon)
-                .setTitle(R.string.wechat_name).setMessage(R.string.wechat_info)
-                .setPositiveButton(R.string.btn_ok, new OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-                    }
-                }).create();
-            dialog.show();
-        }
-    }
-
-    private boolean callWeChat() {
-        Uri contentUrl = Uri.parse(ConfigUtil.getString(Keys.URL_WECHAT));
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.addCategory(Intent.CATEGORY_BROWSABLE);
-        intent.setData(contentUrl);
-        PackageManager pm = getPackageManager();
-        List<ResolveInfo> resInfo = pm.queryIntentActivities(intent, 0);
-        Collections.sort(resInfo, new ResolveInfo.DisplayNameComparator(pm));
-        List<Intent> targetedIntents = new ArrayList<>();
-        for (ResolveInfo info : resInfo) {
-            Intent targeted = new Intent(Intent.ACTION_VIEW);
-            ActivityInfo activityInfo = info.activityInfo;
-            if (activityInfo.packageName.equals("com.tencent.mm")) {
-                targeted.setData(contentUrl);
-                targeted.setPackage(activityInfo.packageName);
-                targeted.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                targetedIntents.add(targeted);
-            }
-        }
-        if (targetedIntents.isEmpty()) {
-            return false;
-        }
-        Intent chooser = Intent.createChooser(targetedIntents.remove(0),
-            getString(R.string.title_choose_wechat));
-        chooser.setClassName("android", "com.android.internal.app.ResolverActivity");
-        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedIntents.toArray(new Parcelable[targetedIntents.size()]));
-        try {
-            StatManager.getInstance().sendWechatStat();
-            startActivity(chooser);
-        } catch (ActivityNotFoundException e) {
-            return false;
-        } catch (SecurityException e) {
-            return false;
-        }
-        return true;
     }
 
     public void onClickSwitchReport(View v) {
